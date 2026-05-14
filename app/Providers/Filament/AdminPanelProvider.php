@@ -18,6 +18,30 @@ class AdminPanelProvider extends PanelProvider
             ->brandName('E-RESERV 🌐')
             ->colors([
                 'primary' => Color::Blue,
+            ])
+            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
+            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
+            ->pages([
+                \Filament\Pages\Dashboard::class,
+            ])
+            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
+            ->widgets([
+                \Filament\Widgets\AccountWidget::class,
+                \Filament\Widgets\FilamentInfoWidget::class,
+            ])
+            ->middleware([
+                \Illuminate\Cookie\Middleware\EncryptCookies::class,
+                \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+                \Illuminate\Session\Middleware\StartSession::class,
+                \Illuminate\Session\Middleware\AuthenticateSession::class,
+                \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+                \Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class,
+                \Illuminate\Routing\Middleware\SubstituteBindings::class,
+                \Filament\Http\Middleware\DisableBladeIconComponents::class,
+                \Filament\Http\Middleware\DispatchServingFilamentEvent::class,
+            ])
+            ->authMiddleware([
+                \Filament\Http\Middleware\Authenticate::class,
             ]);
     }
 }
